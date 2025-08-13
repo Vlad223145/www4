@@ -256,6 +256,9 @@ export default function Index() {
         ))}
       </div>
 
+      {/* Comprehensive FAQ in top left corner */}
+      <ComprehensiveFAQ />
+
       {/* Fixed Corner Connect Button */}
       <button
         onClick={() => setShowPopup(true)}
