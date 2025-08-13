@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import ComprehensiveFAQ from "../components/ComprehensiveFAQ";
 
 interface Droplet {
   id: number;
