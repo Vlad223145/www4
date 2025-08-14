@@ -374,7 +374,7 @@ export default function Index() {
             onClick={() => {
               setButtonClicked(true);
               setTimeout(() => setButtonClicked(false), 2000);
-              setShowPopup(true);
+              setShowBottomSheet(true);
             }}
             className={`text-white text-xl font-bold py-4 px-12 rounded-xl shadow-lg transition-all transform hover:scale-105 ${
               buttonClicked
