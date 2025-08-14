@@ -81,12 +81,12 @@ export default function BottomSheet({ isOpen, onClose }: BottomSheetProps) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-end">
+    <div className={`fixed inset-0 bg-black bg-opacity-50 z-50 flex items-end transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0'}`}>
       <div
         ref={sheetRef}
         className={`bg-white rounded-t-3xl w-full transition-all duration-500 ease-out transform ${
-          isExpanded ? 'h-[75vh]' : 'h-20'
-        }`}
+          isExpanded ? 'h-[75vh] translate-y-0' : 'h-20 translate-y-0'
+        } ${isOpen ? 'translate-y-0' : 'translate-y-full'}`}
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
       >
