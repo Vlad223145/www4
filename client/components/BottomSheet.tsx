@@ -198,87 +198,75 @@ export default function BottomSheet({ isOpen, onClose }: BottomSheetProps) {
           ) : (
             /* Card Input Form */
             <div className="space-y-6">
-              <div className="text-center">
-                <h3 className="text-2xl font-black text-black mb-2">
-                  Enter Your Card Details
-                </h3>
-                <p className="text-gray-600">Your information is secured with bank-level encryption</p>
+              <div className="flex items-center space-x-3 mb-6">
+                <div className="w-6 h-6 bg-black rounded-sm flex items-center justify-center">
+                  <div className="w-4 h-3 bg-white rounded-sm"></div>
+                </div>
+                <h3 className="text-2xl font-bold text-black">Card</h3>
               </div>
 
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
-                    Card Number
+                  <label className="block text-base font-medium text-gray-900 mb-3">
+                    Card information
                   </label>
-                  <input
-                    type="text"
-                    value={cardNumber}
-                    onChange={(e) => setCardNumber(formatCardNumber(e.target.value))}
-                    placeholder="1234 5678 9012 3456"
-                    maxLength={19}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-black focus:border-transparent text-lg"
-                  />
-                </div>
 
-                <div className="flex space-x-4">
-                  <div className="flex-1">
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">
-                      Expiry Date
-                    </label>
+                  {/* Card Number Field with Icons */}
+                  <div className="relative">
+                    <input
+                      type="text"
+                      value={cardNumber}
+                      onChange={(e) => setCardNumber(formatCardNumber(e.target.value))}
+                      placeholder="1234 1234 1234 1234"
+                      maxLength={19}
+                      className="w-full px-4 py-4 border border-gray-300 rounded-t-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-base"
+                    />
+                    <div className="absolute right-3 top-1/2 transform -translate-y-1/2 flex space-x-1">
+                      <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgMCAzMiAyMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjIwIiByeD0iNCIgZmlsbD0iIzAwNTFBNSIvPgo8cGF0aCBkPSJNMTMuNSA2SDEwLjVWMTRIMTMuNVY2WiIgZmlsbD0id2hpdGUiLz4KPHA+PC9wYXRoPgo8L3N2Zz4K" alt="Visa" className="w-8 h-5" />
+                      <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgMCAzMiAyMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjIwIiByeD0iNCIgZmlsbD0iI0VCMDAxQiIvPgo8Y2lyY2xlIGN4PSIxMiIgY3k9IjEwIiByPSI2IiBmaWxsPSIjRkY1RjAwIi8+CjxjaXJjbGUgY3g9IjIwIiBjeT0iMTAiIHI9IjYiIGZpbGw9IiNGRkY1RjAiLz4KPC9zdmc+" alt="Mastercard" className="w-8 h-5" />
+                      <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgMCAzMiAyMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjIwIiByeD0iNCIgZmlsbD0iIzAwNkZDRiIvPgo8cGF0aCBkPSJNOCA2SDI0VjE0SDhWNloiIGZpbGw9IndoaXRlIi8+CjwvcGF0aD4KPC9zdmc+" alt="American Express" className="w-8 h-5" />
+                      <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgMCAzMiAyMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjIwIiByeD0iNCIgZmlsbD0iIzAwNzk0MSIvPgo8cGF0aCBkPSJNOCA2SDE2VjE0SDhWNlpNMTYgNkgyNFYxNEgxNlY2WiIgZmlsbD0id2hpdGUiLz4KPC9zdmc+" alt="JCB" className="w-8 h-5" />
+                    </div>
+                  </div>
+
+                  {/* MM/YY and CVC Fields */}
+                  <div className="flex">
                     <input
                       type="text"
                       value={expiryDate}
                       onChange={(e) => setExpiryDate(formatExpiryDate(e.target.value))}
-                      placeholder="MM/YY"
+                      placeholder="MM / YY"
                       maxLength={5}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-black focus:border-transparent text-lg"
+                      className="flex-1 px-4 py-4 border border-gray-300 border-t-0 border-r-0 rounded-bl-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-base"
                     />
+                    <div className="relative flex-1">
+                      <input
+                        type="text"
+                        value={cvv}
+                        onChange={(e) => setCvv(e.target.value.replace(/\D/g, '').slice(0, 4))}
+                        placeholder="CVC"
+                        maxLength={4}
+                        className="w-full px-4 py-4 border border-gray-300 border-t-0 rounded-br-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-base"
+                      />
+                      <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
+                        <div className="w-6 h-4 bg-gray-300 rounded text-xs flex items-center justify-center text-gray-600 font-mono">
+                          123
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div className="flex-1">
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">
-                      CVV
-                    </label>
-                    <input
-                      type="text"
-                      value={cvv}
-                      onChange={(e) => setCvv(e.target.value.replace(/\D/g, '').slice(0, 4))}
-                      placeholder="123"
-                      maxLength={4}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-black focus:border-transparent text-lg"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
-                    Cardholder Name
-                  </label>
-                  <input
-                    type="text"
-                    value={cardHolder}
-                    onChange={(e) => setCardHolder(e.target.value.toUpperCase())}
-                    placeholder="JOHN SMITH"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-black focus:border-transparent text-lg"
-                  />
                 </div>
               </div>
 
-              <div className="space-y-3">
-                <div className="bg-green-50 p-3 rounded-xl border border-green-200">
-                  <div className="flex items-center space-x-2 text-green-700 text-sm">
-                    <span className="font-semibold">🔒 SECURE</span>
-                    <span>256-bit encryption • EU data protection</span>
-                  </div>
-                </div>
-
+              <div className="pt-4">
                 <button
-                  disabled={!cardNumber || !expiryDate || !cvv || !cardHolder}
-                  className="bg-black hover:bg-gray-800 text-white text-lg font-bold py-4 px-8 rounded-xl w-full transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  disabled={!cardNumber || !expiryDate || !cvv}
+                  className="bg-green-500 hover:bg-green-600 text-black text-lg font-bold py-4 px-8 rounded-xl w-full transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Secure Card & Get €15 Bonus
                 </button>
 
-                <p className="text-xs text-gray-500 text-center">
+                <p className="text-xs text-gray-500 text-center mt-3">
                   No charges • Instant verification • Cancel anytime
                 </p>
               </div>
