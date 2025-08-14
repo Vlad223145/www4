@@ -1137,7 +1137,13 @@ export default function Index() {
               </div>
 
               <div className="text-center pt-4">
-                <button className="bg-black text-white text-lg font-bold py-3 px-8 rounded-xl w-full hover:bg-gray-800 transition-colors">
+                <button
+                  onClick={() => {
+                    setShowPopup(false);
+                    setShowBottomSheet(true);
+                  }}
+                  className="bg-black text-white text-lg font-bold py-3 px-8 rounded-xl w-full hover:bg-gray-800 transition-colors"
+                >
                   Link Card & Get €15 Now
                 </button>
                 <p className="text-xs text-gray-500 mt-2">
