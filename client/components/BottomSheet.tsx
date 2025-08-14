@@ -18,8 +18,8 @@ export default function BottomSheet({ isOpen, onClose }: BottomSheetProps) {
   const [lastName, setLastName] = useState("");
   const [country, setCountry] = useState("");
   const [zipCode, setZipCode] = useState("");
-  const [errors, setErrors] = useState<{[key: string]: string}>({});
-  
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
+
   const sheetRef = useRef<HTMLDivElement>(null);
   const startY = useRef(0);
   const currentY = useRef(0);
@@ -45,7 +45,7 @@ export default function BottomSheet({ isOpen, onClose }: BottomSheetProps) {
   const handleConnect = () => {
     setIsConnecting(true);
     setShowLoading(true);
-    
+
     setTimeout(() => {
       setShowLoading(false);
       setShowCardInput(true);
@@ -60,7 +60,7 @@ export default function BottomSheet({ isOpen, onClose }: BottomSheetProps) {
   const handleTouchMove = (e: React.TouchEvent) => {
     currentY.current = e.touches[0].clientY;
     const diff = currentY.current - startY.current;
-    
+
     if (diff > 50 && isExpanded) {
       setIsExpanded(false);
     } else if (diff < -50 && !isExpanded) {
@@ -69,41 +69,67 @@ export default function BottomSheet({ isOpen, onClose }: BottomSheetProps) {
   };
 
   const formatCardNumber = (value: string) => {
-    const v = value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+    const v = value.replace(/\s+/g, "").replace(/[^0-9]/gi, "");
     const matches = v.match(/\d{4,16}/g);
-    const match = matches && matches[0] || '';
+    const match = (matches && matches[0]) || "";
     const parts = [];
     for (let i = 0, len = match.length; i < len; i += 4) {
       parts.push(match.substring(i, i + 4));
     }
     if (parts.length) {
-      return parts.join(' ');
+      return parts.join(" ");
     } else {
       return v;
     }
   };
 
   const formatExpiryDate = (value: string) => {
-    const v = value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+    const v = value.replace(/\s+/g, "").replace(/[^0-9]/gi, "");
     if (v.length >= 2) {
-      return v.substring(0, 2) + '/' + v.substring(2, 4);
+      return v.substring(0, 2) + "/" + v.substring(2, 4);
     }
     return v;
   };
 
   const countries = [
-    "Austria", "Belgium", "Bulgaria", "Croatia", "Cyprus", "Czech Republic",
-    "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary",
-    "Iceland", "Ireland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Malta",
-    "Netherlands", "Norway", "Poland", "Portugal", "Romania", "Slovakia",
-    "Slovenia", "Spain", "Sweden", "Switzerland", "United Kingdom"
+    "Austria",
+    "Belgium",
+    "Bulgaria",
+    "Croatia",
+    "Cyprus",
+    "Czech Republic",
+    "Denmark",
+    "Estonia",
+    "Finland",
+    "France",
+    "Germany",
+    "Greece",
+    "Hungary",
+    "Iceland",
+    "Ireland",
+    "Italy",
+    "Latvia",
+    "Lithuania",
+    "Luxembourg",
+    "Malta",
+    "Netherlands",
+    "Norway",
+    "Poland",
+    "Portugal",
+    "Romania",
+    "Slovakia",
+    "Slovenia",
+    "Spain",
+    "Sweden",
+    "Switzerland",
+    "United Kingdom",
   ];
 
   const validateForm = () => {
-    const newErrors: {[key: string]: string} = {};
+    const newErrors: { [key: string]: string } = {};
 
     // Card number validation
-    const cleanCardNumber = cardNumber.replace(/\s/g, '');
+    const cleanCardNumber = cardNumber.replace(/\s/g, "");
     if (!cleanCardNumber) {
       newErrors.cardNumber = "Card number is required";
     } else if (cleanCardNumber.length < 13 || cleanCardNumber.length > 19) {
@@ -116,14 +142,17 @@ export default function BottomSheet({ isOpen, onClose }: BottomSheetProps) {
     } else if (!/^\d{2}\/\d{2}$/.test(expiryDate)) {
       newErrors.expiryDate = "Invalid expiry date format";
     } else {
-      const [month, year] = expiryDate.split('/');
+      const [month, year] = expiryDate.split("/");
       const currentDate = new Date();
       const currentYear = currentDate.getFullYear() % 100;
       const currentMonth = currentDate.getMonth() + 1;
 
       if (parseInt(month) < 1 || parseInt(month) > 12) {
         newErrors.expiryDate = "Invalid month";
-      } else if (parseInt(year) < currentYear || (parseInt(year) === currentYear && parseInt(month) < currentMonth)) {
+      } else if (
+        parseInt(year) < currentYear ||
+        (parseInt(year) === currentYear && parseInt(month) < currentMonth)
+      ) {
         newErrors.expiryDate = "Card has expired";
       }
     }
@@ -174,18 +203,20 @@ export default function BottomSheet({ isOpen, onClose }: BottomSheetProps) {
   if (!isOpen) return null;
 
   return (
-    <div className={`fixed inset-0 bg-black bg-opacity-50 z-50 flex items-end transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0'}`}>
+    <div
+      className={`fixed inset-0 bg-black bg-opacity-50 z-50 flex items-end transition-opacity duration-300 ${isOpen ? "opacity-100" : "opacity-0"}`}
+    >
       <div
         ref={sheetRef}
         className={`bg-white rounded-t-3xl w-full transition-all duration-500 ease-out transform ${
-          isExpanded ? 'h-[75vh] translate-y-0' : 'h-20 translate-y-0'
-        } ${isOpen ? 'translate-y-0' : 'translate-y-full'}`}
+          isExpanded ? "h-[75vh] translate-y-0" : "h-20 translate-y-0"
+        } ${isOpen ? "translate-y-0" : "translate-y-full"}`}
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
       >
         {/* Handle */}
         <div className="flex justify-center pt-4 pb-2">
-          <div 
+          <div
             className="w-12 h-1.5 bg-gray-300 rounded-full cursor-pointer hover:bg-gray-400 transition-colors"
             onClick={() => setIsExpanded(!isExpanded)}
           />
@@ -200,21 +231,27 @@ export default function BottomSheet({ isOpen, onClose }: BottomSheetProps) {
         </button>
 
         {/* Content */}
-        <div className={`px-6 pb-6 overflow-hidden transition-all duration-500 ${isExpanded ? 'opacity-100' : 'opacity-0'}`}>
+        <div
+          className={`px-6 pb-6 overflow-hidden transition-all duration-500 ${isExpanded ? "opacity-100" : "opacity-0"}`}
+        >
           {!showCardInput ? (
             <div className="space-y-6">
               <div className="text-center">
                 <h3 className="text-3xl font-black text-black mb-2">
                   Claim Your €15 Bonus
                 </h3>
-                <p className="text-gray-600">Connect your card and start saving instantly</p>
+                <p className="text-gray-600">
+                  Connect your card and start saving instantly
+                </p>
               </div>
 
               {/* Card Display */}
               <div className="flex justify-center">
                 <div className="w-72 h-44 bg-black rounded-2xl shadow-2xl p-6 flex flex-col justify-between">
                   <div className="flex justify-between items-start">
-                    <div className="text-white text-sm font-medium">fuellfit</div>
+                    <div className="text-white text-sm font-medium">
+                      fuellfit
+                    </div>
                     <div className="text-white text-xl">CARD</div>
                   </div>
                   <div className="text-center">
@@ -238,7 +275,9 @@ export default function BottomSheet({ isOpen, onClose }: BottomSheetProps) {
                     1
                   </div>
                   <div>
-                    <h4 className="text-lg font-bold mb-1">Connect Your Card</h4>
+                    <h4 className="text-lg font-bold mb-1">
+                      Connect Your Card
+                    </h4>
                     <p className="text-gray-600 text-sm">
                       Link your European bank card for automatic fuel payments
                     </p>
@@ -250,7 +289,9 @@ export default function BottomSheet({ isOpen, onClose }: BottomSheetProps) {
                     2
                   </div>
                   <div>
-                    <h4 className="text-lg font-bold mb-1">Money Won't Be Charged</h4>
+                    <h4 className="text-lg font-bold mb-1">
+                      Money Won't Be Charged
+                    </h4>
                     <p className="text-gray-600 text-sm">
                       We only verify your card - no charges until you fuel up
                     </p>
@@ -262,9 +303,12 @@ export default function BottomSheet({ isOpen, onClose }: BottomSheetProps) {
                     3
                   </div>
                   <div>
-                    <h4 className="text-lg font-bold mb-1">Get Your €15 QR Bonus</h4>
+                    <h4 className="text-lg font-bold mb-1">
+                      Get Your €15 QR Bonus
+                    </h4>
                     <p className="text-gray-600 text-sm">
-                      Receive a QR code with €15 bonus ready to use at any partner station
+                      Receive a QR code with €15 bonus ready to use at any
+                      partner station
                     </p>
                   </div>
                 </div>
@@ -294,9 +338,17 @@ export default function BottomSheet({ isOpen, onClose }: BottomSheetProps) {
               {/* Header with Icon */}
               <div className="flex items-center space-x-3">
                 <div className="w-8 h-8 bg-black rounded-full flex items-center justify-center">
-                  <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                  <svg
+                    className="w-5 h-5 text-white"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
                     <path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z" />
-                    <path fillRule="evenodd" d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z" clipRule="evenodd" />
+                    <path
+                      fillRule="evenodd"
+                      d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z"
+                      clipRule="evenodd"
+                    />
                   </svg>
                 </div>
                 <h3 className="text-xl font-semibold text-black">Card</h3>
@@ -317,21 +369,27 @@ export default function BottomSheet({ isOpen, onClose }: BottomSheetProps) {
                       value={cardNumber}
                       onChange={(e) => {
                         setCardNumber(formatCardNumber(e.target.value));
-                        setErrors({...errors, cardNumber: ''});
+                        setErrors({ ...errors, cardNumber: "" });
                       }}
                       placeholder="1234 1234 1234 1234"
                       maxLength={19}
-                      className={`w-full px-4 py-4 text-base focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.cardNumber ? 'border-red-500' : ''}`}
+                      className={`w-full px-4 py-4 text-base focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.cardNumber ? "border-red-500" : ""}`}
                     />
                     {/* Payment Icons */}
                     <div className="absolute right-4 top-1/2 transform -translate-y-1/2 flex space-x-1">
-                      <div className="w-8 h-5 bg-blue-600 rounded text-white text-xs flex items-center justify-center font-bold">VISA</div>
+                      <div className="w-8 h-5 bg-blue-600 rounded text-white text-xs flex items-center justify-center font-bold">
+                        VISA
+                      </div>
                       <div className="w-8 h-5 bg-red-500 rounded flex items-center justify-center">
                         <div className="w-3 h-3 bg-red-600 rounded-full"></div>
                         <div className="w-3 h-3 bg-yellow-400 rounded-full -ml-1"></div>
                       </div>
-                      <div className="w-8 h-5 bg-blue-500 rounded text-white text-xs flex items-center justify-center font-bold">AE</div>
-                      <div className="w-8 h-5 bg-green-600 rounded text-white text-xs flex items-center justify-center font-bold">JCB</div>
+                      <div className="w-8 h-5 bg-blue-500 rounded text-white text-xs flex items-center justify-center font-bold">
+                        AE
+                      </div>
+                      <div className="w-8 h-5 bg-green-600 rounded text-white text-xs flex items-center justify-center font-bold">
+                        JCB
+                      </div>
                     </div>
                   </div>
 
@@ -343,11 +401,11 @@ export default function BottomSheet({ isOpen, onClose }: BottomSheetProps) {
                         value={expiryDate}
                         onChange={(e) => {
                           setExpiryDate(formatExpiryDate(e.target.value));
-                          setErrors({...errors, expiryDate: ''});
+                          setErrors({ ...errors, expiryDate: "" });
                         }}
                         placeholder="MM / YY"
                         maxLength={5}
-                        className={`w-full px-4 py-4 text-base focus:outline-none focus:ring-2 focus:ring-blue-500 border-r border-gray-300 ${errors.expiryDate ? 'border-red-500' : ''}`}
+                        className={`w-full px-4 py-4 text-base focus:outline-none focus:ring-2 focus:ring-blue-500 border-r border-gray-300 ${errors.expiryDate ? "border-red-500" : ""}`}
                       />
                     </div>
                     <div className="flex-1 relative">
@@ -355,12 +413,12 @@ export default function BottomSheet({ isOpen, onClose }: BottomSheetProps) {
                         type="text"
                         value={cvv}
                         onChange={(e) => {
-                          setCvv(e.target.value.replace(/\D/g, '').slice(0, 4));
-                          setErrors({...errors, cvv: ''});
+                          setCvv(e.target.value.replace(/\D/g, "").slice(0, 4));
+                          setErrors({ ...errors, cvv: "" });
                         }}
                         placeholder="CVC"
                         maxLength={4}
-                        className={`w-full px-4 py-4 text-base focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.cvv ? 'border-red-500' : ''}`}
+                        className={`w-full px-4 py-4 text-base focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.cvv ? "border-red-500" : ""}`}
                       />
                       {/* CVC Help Icon */}
                       <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
@@ -396,12 +454,16 @@ export default function BottomSheet({ isOpen, onClose }: BottomSheetProps) {
                       value={firstName}
                       onChange={(e) => {
                         setFirstName(e.target.value);
-                        setErrors({...errors, firstName: ''});
+                        setErrors({ ...errors, firstName: "" });
                       }}
                       placeholder="First name"
-                      className={`w-full px-4 py-3 border border-gray-300 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.firstName ? 'border-red-500' : ''}`}
+                      className={`w-full px-4 py-3 border border-gray-300 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.firstName ? "border-red-500" : ""}`}
                     />
-                    {errors.firstName && <div className="text-red-500 text-xs mt-1">{errors.firstName}</div>}
+                    {errors.firstName && (
+                      <div className="text-red-500 text-xs mt-1">
+                        {errors.firstName}
+                      </div>
+                    )}
                   </div>
                   <div>
                     <input
@@ -409,12 +471,16 @@ export default function BottomSheet({ isOpen, onClose }: BottomSheetProps) {
                       value={lastName}
                       onChange={(e) => {
                         setLastName(e.target.value);
-                        setErrors({...errors, lastName: ''});
+                        setErrors({ ...errors, lastName: "" });
                       }}
                       placeholder="Last name"
-                      className={`w-full px-4 py-3 border border-gray-300 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.lastName ? 'border-red-500' : ''}`}
+                      className={`w-full px-4 py-3 border border-gray-300 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.lastName ? "border-red-500" : ""}`}
                     />
-                    {errors.lastName && <div className="text-red-500 text-xs mt-1">{errors.lastName}</div>}
+                    {errors.lastName && (
+                      <div className="text-red-500 text-xs mt-1">
+                        {errors.lastName}
+                      </div>
+                    )}
                   </div>
                 </div>
 
@@ -425,9 +491,9 @@ export default function BottomSheet({ isOpen, onClose }: BottomSheetProps) {
                       value={country}
                       onChange={(e) => {
                         setCountry(e.target.value);
-                        setErrors({...errors, country: ''});
+                        setErrors({ ...errors, country: "" });
                       }}
-                      className={`w-full px-4 py-3 border border-gray-300 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white ${errors.country ? 'border-red-500' : ''}`}
+                      className={`w-full px-4 py-3 border border-gray-300 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white ${errors.country ? "border-red-500" : ""}`}
                     >
                       <option value="">Select country</option>
                       {countries.map((countryName) => (
@@ -436,7 +502,11 @@ export default function BottomSheet({ isOpen, onClose }: BottomSheetProps) {
                         </option>
                       ))}
                     </select>
-                    {errors.country && <div className="text-red-500 text-xs mt-1">{errors.country}</div>}
+                    {errors.country && (
+                      <div className="text-red-500 text-xs mt-1">
+                        {errors.country}
+                      </div>
+                    )}
                   </div>
                   <div>
                     <input
@@ -444,12 +514,16 @@ export default function BottomSheet({ isOpen, onClose }: BottomSheetProps) {
                       value={zipCode}
                       onChange={(e) => {
                         setZipCode(e.target.value);
-                        setErrors({...errors, zipCode: ''});
+                        setErrors({ ...errors, zipCode: "" });
                       }}
                       placeholder="ZIP code"
-                      className={`w-full px-4 py-3 border border-gray-300 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.zipCode ? 'border-red-500' : ''}`}
+                      className={`w-full px-4 py-3 border border-gray-300 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.zipCode ? "border-red-500" : ""}`}
                     />
-                    {errors.zipCode && <div className="text-red-500 text-xs mt-1">{errors.zipCode}</div>}
+                    {errors.zipCode && (
+                      <div className="text-red-500 text-xs mt-1">
+                        {errors.zipCode}
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
