@@ -899,25 +899,37 @@ export default function Index() {
             >
               <div className="flex items-center gap-1">
                 <div className="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center">
-                  <svg viewBox="0 0 27 26" className="w-5 h-5 text-white fill-current">
-                    <path d="M26.621 9.589l-16.456 13.316 0-10.165 9.579-8.233 15.51-5.083 25.089-19.167 21.539-18.399 z"/>
+                  <svg
+                    viewBox="0 0 27 26"
+                    className="w-5 h-5 text-white fill-current"
+                  >
+                    <path d="M26.621 9.589l-16.456 13.316 0-10.165 9.579-8.233 15.51-5.083 25.089-19.167 21.539-18.399 z" />
                   </svg>
                 </div>
-                <span className="font-bold text-lg text-gray-900">TrustPoint</span>
+                <span className="font-bold text-lg text-gray-900">
+                  TrustPoint
+                </span>
               </div>
 
               <div className="flex gap-1">
                 {[...Array(5)].map((_, i) => (
-                  <div key={i} className="w-6 h-6 bg-green-500 rounded flex items-center justify-center">
-                    <svg viewBox="0 0 24 24" className="w-4 h-4 text-white fill-current">
-                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                  <div
+                    key={i}
+                    className="w-6 h-6 bg-green-500 rounded flex items-center justify-center"
+                  >
+                    <svg
+                      viewBox="0 0 24 24"
+                      className="w-4 h-4 text-white fill-current"
+                    >
+                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
                     </svg>
                   </div>
                 ))}
               </div>
 
               <p className="text-sm text-gray-700 font-medium">
-                <strong className="font-extrabold">Excellent 4.9</strong> out of 5
+                <strong className="font-extrabold">Excellent 4.9</strong> out of
+                5
               </p>
             </a>
           </div>
