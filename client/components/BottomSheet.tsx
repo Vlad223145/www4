@@ -14,7 +14,11 @@ export default function BottomSheet({ isOpen, onClose }: BottomSheetProps) {
   const [cardNumber, setCardNumber] = useState("");
   const [expiryDate, setExpiryDate] = useState("");
   const [cvv, setCvv] = useState("");
-  const [cardHolder, setCardHolder] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [country, setCountry] = useState("");
+  const [zipCode, setZipCode] = useState("");
+  const [errors, setErrors] = useState<{[key: string]: string}>({});
   
   const sheetRef = useRef<HTMLDivElement>(null);
   const startY = useRef(0);
