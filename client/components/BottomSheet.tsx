@@ -82,6 +82,86 @@ export default function BottomSheet({ isOpen, onClose }: BottomSheetProps) {
     return v;
   };
 
+  const countries = [
+    "Austria", "Belgium", "Bulgaria", "Croatia", "Cyprus", "Czech Republic",
+    "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary",
+    "Iceland", "Ireland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Malta",
+    "Netherlands", "Norway", "Poland", "Portugal", "Romania", "Slovakia",
+    "Slovenia", "Spain", "Sweden", "Switzerland", "United Kingdom"
+  ];
+
+  const validateForm = () => {
+    const newErrors: {[key: string]: string} = {};
+
+    // Card number validation
+    const cleanCardNumber = cardNumber.replace(/\s/g, '');
+    if (!cleanCardNumber) {
+      newErrors.cardNumber = "Card number is required";
+    } else if (cleanCardNumber.length < 13 || cleanCardNumber.length > 19) {
+      newErrors.cardNumber = "Invalid card number";
+    }
+
+    // Expiry date validation
+    if (!expiryDate) {
+      newErrors.expiryDate = "Expiry date is required";
+    } else if (!/^\d{2}\/\d{2}$/.test(expiryDate)) {
+      newErrors.expiryDate = "Invalid expiry date format";
+    } else {
+      const [month, year] = expiryDate.split('/');
+      const currentDate = new Date();
+      const currentYear = currentDate.getFullYear() % 100;
+      const currentMonth = currentDate.getMonth() + 1;
+
+      if (parseInt(month) < 1 || parseInt(month) > 12) {
+        newErrors.expiryDate = "Invalid month";
+      } else if (parseInt(year) < currentYear || (parseInt(year) === currentYear && parseInt(month) < currentMonth)) {
+        newErrors.expiryDate = "Card has expired";
+      }
+    }
+
+    // CVV validation
+    if (!cvv) {
+      newErrors.cvv = "CVV is required";
+    } else if (cvv.length < 3 || cvv.length > 4) {
+      newErrors.cvv = "Invalid CVV";
+    }
+
+    // Name validation
+    if (!firstName.trim()) {
+      newErrors.firstName = "First name is required";
+    } else if (firstName.length < 2) {
+      newErrors.firstName = "First name must be at least 2 characters";
+    }
+
+    if (!lastName.trim()) {
+      newErrors.lastName = "Last name is required";
+    } else if (lastName.length < 2) {
+      newErrors.lastName = "Last name must be at least 2 characters";
+    }
+
+    // Country validation
+    if (!country) {
+      newErrors.country = "Country is required";
+    }
+
+    // ZIP code validation
+    if (!zipCode.trim()) {
+      newErrors.zipCode = "ZIP code is required";
+    } else if (zipCode.length < 3) {
+      newErrors.zipCode = "Invalid ZIP code";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = () => {
+    if (validateForm()) {
+      // Form is valid, proceed with submission
+      console.log("Form submitted successfully");
+    }
+  };
+
   if (!isOpen) return null;
 
   return (
