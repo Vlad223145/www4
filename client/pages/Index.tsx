@@ -262,7 +262,7 @@ export default function Index() {
 
       {/* Fixed Corner Connect Button */}
       <button
-        onClick={() => setShowPopup(true)}
+        onClick={() => setShowBottomSheet(true)}
         className="fixed top-6 right-6 bg-black text-white px-6 py-3 rounded-full font-bold hover:bg-gray-800 transition-all transform hover:scale-105 z-50 shadow-lg"
       >
         Connect Card
