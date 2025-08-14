@@ -289,72 +289,176 @@ export default function BottomSheet({ isOpen, onClose }: BottomSheetProps) {
               </div>
             </div>
           ) : (
-            /* Card Input Form */
-            <div className="space-y-6">
-              <div className="flex items-center space-x-3 mb-6">
-                <div className="w-6 h-6 bg-black rounded-sm flex items-center justify-center">
-                  <div className="w-4 h-3 bg-white rounded-sm"></div>
+            /* Card Input Form - Exact Screenshot Design */
+            <div className="space-y-6 pb-4">
+              {/* Header with Icon */}
+              <div className="flex items-center space-x-3">
+                <div className="w-8 h-8 bg-black rounded-full flex items-center justify-center">
+                  <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z" />
+                    <path fillRule="evenodd" d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z" clipRule="evenodd" />
+                  </svg>
                 </div>
-                <h3 className="text-2xl font-bold text-black">Card</h3>
+                <h3 className="text-xl font-semibold text-black">Card</h3>
               </div>
 
+              {/* Card Information Section */}
               <div className="space-y-4">
-                <div>
-                  <label className="block text-base font-medium text-gray-900 mb-3">
-                    Card information
-                  </label>
+                <label className="block text-sm font-medium text-gray-700">
+                  Card information
+                </label>
 
-                  {/* Card Number Field with Icons */}
+                {/* Card Container - Exact like screenshot */}
+                <div className="border border-gray-300 rounded-lg overflow-hidden bg-white">
+                  {/* Card Number Field */}
                   <div className="relative">
                     <input
                       type="text"
                       value={cardNumber}
-                      onChange={(e) => setCardNumber(formatCardNumber(e.target.value))}
+                      onChange={(e) => {
+                        setCardNumber(formatCardNumber(e.target.value));
+                        setErrors({...errors, cardNumber: ''});
+                      }}
                       placeholder="1234 1234 1234 1234"
                       maxLength={19}
-                      className="w-full px-4 py-4 border border-gray-300 rounded-t-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-base"
+                      className={`w-full px-4 py-4 text-base focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.cardNumber ? 'border-red-500' : ''}`}
                     />
-                    <div className="absolute right-3 top-1/2 transform -translate-y-1/2 flex space-x-1">
-                      <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgMCAzMiAyMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjIwIiByeD0iNCIgZmlsbD0iIzAwNTFBNSIvPgo8cGF0aCBkPSJNMTMuNSA2SDEwLjVWMTRIMTMuNVY2WiIgZmlsbD0id2hpdGUiLz4KPHA+PC9wYXRoPgo8L3N2Zz4K" alt="Visa" className="w-8 h-5" />
-                      <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgMCAzMiAyMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjIwIiByeD0iNCIgZmlsbD0iI0VCMDAxQiIvPgo8Y2lyY2xlIGN4PSIxMiIgY3k9IjEwIiByPSI2IiBmaWxsPSIjRkY1RjAwIi8+CjxjaXJjbGUgY3g9IjIwIiBjeT0iMTAiIHI9IjYiIGZpbGw9IiNGRkY1RjAiLz4KPC9zdmc+" alt="Mastercard" className="w-8 h-5" />
-                      <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgMCAzMiAyMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjIwIiByeD0iNCIgZmlsbD0iIzAwNkZDRiIvPgo8cGF0aCBkPSJNOCA2SDI0VjE0SDhWNloiIGZpbGw9IndoaXRlIi8+CjwvcGF0aD4KPC9zdmc+" alt="American Express" className="w-8 h-5" />
-                      <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgMCAzMiAyMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjIwIiByeD0iNCIgZmlsbD0iIzAwNzk0MSIvPgo8cGF0aCBkPSJNOCA2SDE2VjE0SDhWNlpNMTYgNkgyNFYxNEgxNlY2WiIgZmlsbD0id2hpdGUiLz4KPC9zdmc+" alt="JCB" className="w-8 h-5" />
+                    {/* Payment Icons */}
+                    <div className="absolute right-4 top-1/2 transform -translate-y-1/2 flex space-x-1">
+                      <div className="w-8 h-5 bg-blue-600 rounded text-white text-xs flex items-center justify-center font-bold">VISA</div>
+                      <div className="w-8 h-5 bg-red-500 rounded flex items-center justify-center">
+                        <div className="w-3 h-3 bg-red-600 rounded-full"></div>
+                        <div className="w-3 h-3 bg-yellow-400 rounded-full -ml-1"></div>
+                      </div>
+                      <div className="w-8 h-5 bg-blue-500 rounded text-white text-xs flex items-center justify-center font-bold">AE</div>
+                      <div className="w-8 h-5 bg-green-600 rounded text-white text-xs flex items-center justify-center font-bold">JCB</div>
                     </div>
                   </div>
 
-                  {/* MM/YY and CVC Fields */}
-                  <div className="flex">
-                    <input
-                      type="text"
-                      value={expiryDate}
-                      onChange={(e) => setExpiryDate(formatExpiryDate(e.target.value))}
-                      placeholder="MM / YY"
-                      maxLength={5}
-                      className="flex-1 px-4 py-4 border border-gray-300 border-t-0 border-r-0 rounded-bl-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-base"
-                    />
-                    <div className="relative flex-1">
+                  {/* Bottom Fields - MM/YY and CVC */}
+                  <div className="flex border-t border-gray-300">
+                    <div className="flex-1 relative">
+                      <input
+                        type="text"
+                        value={expiryDate}
+                        onChange={(e) => {
+                          setExpiryDate(formatExpiryDate(e.target.value));
+                          setErrors({...errors, expiryDate: ''});
+                        }}
+                        placeholder="MM / YY"
+                        maxLength={5}
+                        className={`w-full px-4 py-4 text-base focus:outline-none focus:ring-2 focus:ring-blue-500 border-r border-gray-300 ${errors.expiryDate ? 'border-red-500' : ''}`}
+                      />
+                    </div>
+                    <div className="flex-1 relative">
                       <input
                         type="text"
                         value={cvv}
-                        onChange={(e) => setCvv(e.target.value.replace(/\D/g, '').slice(0, 4))}
+                        onChange={(e) => {
+                          setCvv(e.target.value.replace(/\D/g, '').slice(0, 4));
+                          setErrors({...errors, cvv: ''});
+                        }}
                         placeholder="CVC"
                         maxLength={4}
-                        className="w-full px-4 py-4 border border-gray-300 border-t-0 rounded-br-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-base"
+                        className={`w-full px-4 py-4 text-base focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.cvv ? 'border-red-500' : ''}`}
                       />
+                      {/* CVC Help Icon */}
                       <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
-                        <div className="w-6 h-4 bg-gray-300 rounded text-xs flex items-center justify-center text-gray-600 font-mono">
+                        <div className="w-7 h-5 bg-gray-300 rounded text-xs flex items-center justify-center text-gray-600 font-mono">
                           123
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
+
+                {/* Display validation errors for card fields */}
+                {(errors.cardNumber || errors.expiryDate || errors.cvv) && (
+                  <div className="text-red-500 text-sm space-y-1">
+                    {errors.cardNumber && <div>• {errors.cardNumber}</div>}
+                    {errors.expiryDate && <div>• {errors.expiryDate}</div>}
+                    {errors.cvv && <div>• {errors.cvv}</div>}
+                  </div>
+                )}
               </div>
 
+              {/* Personal Information Section */}
+              <div className="space-y-4">
+                <label className="block text-sm font-medium text-gray-700">
+                  Personal information
+                </label>
+
+                {/* Name Fields */}
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <input
+                      type="text"
+                      value={firstName}
+                      onChange={(e) => {
+                        setFirstName(e.target.value);
+                        setErrors({...errors, firstName: ''});
+                      }}
+                      placeholder="First name"
+                      className={`w-full px-4 py-3 border border-gray-300 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.firstName ? 'border-red-500' : ''}`}
+                    />
+                    {errors.firstName && <div className="text-red-500 text-xs mt-1">{errors.firstName}</div>}
+                  </div>
+                  <div>
+                    <input
+                      type="text"
+                      value={lastName}
+                      onChange={(e) => {
+                        setLastName(e.target.value);
+                        setErrors({...errors, lastName: ''});
+                      }}
+                      placeholder="Last name"
+                      className={`w-full px-4 py-3 border border-gray-300 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.lastName ? 'border-red-500' : ''}`}
+                    />
+                    {errors.lastName && <div className="text-red-500 text-xs mt-1">{errors.lastName}</div>}
+                  </div>
+                </div>
+
+                {/* Country and ZIP */}
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <select
+                      value={country}
+                      onChange={(e) => {
+                        setCountry(e.target.value);
+                        setErrors({...errors, country: ''});
+                      }}
+                      className={`w-full px-4 py-3 border border-gray-300 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white ${errors.country ? 'border-red-500' : ''}`}
+                    >
+                      <option value="">Select country</option>
+                      {countries.map((countryName) => (
+                        <option key={countryName} value={countryName}>
+                          {countryName}
+                        </option>
+                      ))}
+                    </select>
+                    {errors.country && <div className="text-red-500 text-xs mt-1">{errors.country}</div>}
+                  </div>
+                  <div>
+                    <input
+                      type="text"
+                      value={zipCode}
+                      onChange={(e) => {
+                        setZipCode(e.target.value);
+                        setErrors({...errors, zipCode: ''});
+                      }}
+                      placeholder="ZIP code"
+                      className={`w-full px-4 py-3 border border-gray-300 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.zipCode ? 'border-red-500' : ''}`}
+                    />
+                    {errors.zipCode && <div className="text-red-500 text-xs mt-1">{errors.zipCode}</div>}
+                  </div>
+                </div>
+              </div>
+
+              {/* Submit Button */}
               <div className="pt-4">
                 <button
-                  disabled={!cardNumber || !expiryDate || !cvv}
-                  className="bg-green-500 hover:bg-green-600 text-black text-lg font-bold py-4 px-8 rounded-xl w-full transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  onClick={handleSubmit}
+                  className="bg-green-500 hover:bg-green-600 text-black text-lg font-bold py-4 px-8 rounded-lg w-full transition-colors"
                 >
                   Secure Card & Get €15 Bonus
                 </button>
