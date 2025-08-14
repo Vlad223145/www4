@@ -30,6 +30,15 @@ export default function BottomSheet({ isOpen, onClose }: BottomSheetProps) {
       setShowLoading(false);
       setShowCardInput(false);
       setIsConnecting(false);
+      // Reset form
+      setCardNumber("");
+      setExpiryDate("");
+      setCvv("");
+      setFirstName("");
+      setLastName("");
+      setCountry("");
+      setZipCode("");
+      setErrors({});
     }
   }, [isOpen]);
 
