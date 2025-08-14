@@ -11,6 +11,7 @@ interface Droplet {
 
 export default function Index() {
   const [showBottomSheet, setShowBottomSheet] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
   const carAnimationRef = useRef<HTMLDivElement>(null);
