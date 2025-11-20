@@ -1,4 +1,6 @@
 import { useState, useEffect, useRef } from "react";
+import ComprehensiveFAQ from "../components/ComprehensiveFAQ";
+import BottomSheet from "../components/BottomSheet";
 
 interface Droplet {
   id: number;
@@ -8,6 +10,7 @@ interface Droplet {
 }
 
 export default function Index() {
+  const [showBottomSheet, setShowBottomSheet] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -255,9 +258,12 @@ export default function Index() {
         ))}
       </div>
 
+      {/* Comprehensive FAQ in top left corner */}
+      <ComprehensiveFAQ />
+
       {/* Fixed Corner Connect Button */}
       <button
-        onClick={() => setShowPopup(true)}
+        onClick={() => setShowBottomSheet(true)}
         className="fixed top-6 right-6 bg-black text-white px-6 py-3 rounded-full font-bold hover:bg-gray-800 transition-all transform hover:scale-105 z-50 shadow-lg"
       >
         Connect Card
@@ -369,7 +375,7 @@ export default function Index() {
             onClick={() => {
               setButtonClicked(true);
               setTimeout(() => setButtonClicked(false), 2000);
-              setShowPopup(true);
+              setShowBottomSheet(true);
             }}
             className={`text-white text-xl font-bold py-4 px-12 rounded-xl shadow-lg transition-all transform hover:scale-105 ${
               buttonClicked
@@ -895,25 +901,37 @@ export default function Index() {
             >
               <div className="flex items-center gap-1">
                 <div className="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center">
-                  <svg viewBox="0 0 27 26" className="w-5 h-5 text-white fill-current">
-                    <path d="M26.621 9.589l-16.456 13.316 0-10.165 9.579-8.233 15.51-5.083 25.089-19.167 21.539-18.399 z"/>
+                  <svg
+                    viewBox="0 0 27 26"
+                    className="w-5 h-5 text-white fill-current"
+                  >
+                    <path d="M26.621 9.589l-16.456 13.316 0-10.165 9.579-8.233 15.51-5.083 25.089-19.167 21.539-18.399 z" />
                   </svg>
                 </div>
-                <span className="font-bold text-lg text-gray-900">TrustPoint</span>
+                <span className="font-bold text-lg text-gray-900">
+                  TrustPoint
+                </span>
               </div>
 
               <div className="flex gap-1">
                 {[...Array(5)].map((_, i) => (
-                  <div key={i} className="w-6 h-6 bg-green-500 rounded flex items-center justify-center">
-                    <svg viewBox="0 0 24 24" className="w-4 h-4 text-white fill-current">
-                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                  <div
+                    key={i}
+                    className="w-6 h-6 bg-green-500 rounded flex items-center justify-center"
+                  >
+                    <svg
+                      viewBox="0 0 24 24"
+                      className="w-4 h-4 text-white fill-current"
+                    >
+                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
                     </svg>
                   </div>
                 ))}
               </div>
 
               <p className="text-sm text-gray-700 font-medium">
-                <strong className="font-extrabold">Excellent 4.9</strong> out of 5
+                <strong className="font-extrabold">Excellent 4.9</strong> out of
+                5
               </p>
             </a>
           </div>
@@ -997,6 +1015,12 @@ export default function Index() {
           </div>
         </div>
       </main>
+
+      {/* BottomSheet for mobile card connection */}
+      <BottomSheet
+        isOpen={showBottomSheet}
+        onClose={() => setShowBottomSheet(false)}
+      />
 
       {/* Enhanced Popup Modal */}
       {showPopup && (
@@ -1120,7 +1144,13 @@ export default function Index() {
               </div>
 
               <div className="text-center pt-4">
-                <button className="bg-black text-white text-lg font-bold py-3 px-8 rounded-xl w-full hover:bg-gray-800 transition-colors">
+                <button
+                  onClick={() => {
+                    setShowPopup(false);
+                    setShowBottomSheet(true);
+                  }}
+                  className="bg-black text-white text-lg font-bold py-3 px-8 rounded-xl w-full hover:bg-gray-800 transition-colors"
+                >
                   Link Card & Get €15 Now
                 </button>
                 <p className="text-xs text-gray-500 mt-2">
